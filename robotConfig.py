@@ -1,22 +1,8 @@
-from utils.singleton import Singleton
-class DisabledWebserver(metaclass=Singleton):
-
-    def __init__(self):
-        print(f"Disabled Webserver:Initializing")
-
-    # Ensure we invoke shutdown procedures on the class destruction
-    def __del__(self):
-        print("Disabled Webserver:Server shutting down")
-
-class DisabledDashboard():
-    def __init__(self):
-        print(f"Disabled Dashboard:Initializing")
-
-    def __del__(self):
-        print("Disabled Dashboard:Server shutting down")
+from webserver.webserver import Webserver
+from dashboard import Dashboard
 
 def webserverConstructorOrNone():
-    return DisabledWebserver()
+    return Webserver()
 
 def dashboardOrNone():
-    return DisabledDashboard()
+    return Dashboard()

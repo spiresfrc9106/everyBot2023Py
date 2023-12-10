@@ -1,9 +1,39 @@
-# firstRoboPy
-A very simple first attempt at robot written in python
+# everyBot2023Py
 
-![Workflow Status](https://github.com/RobotCasserole1736/firstRoboPy/actions/workflows/ci.yml/badge.svg)
+Spires are building a 2023 everybot to learn about robot construction.
+
+This project is to down-convert a Robot Casserole firstRoboPy swerve drive
+code base to a 2023 everybot tank drive code base.
+
+See:
+
+1. https://github.com/RobotCasserole1736/firstRoboPy
+2. https://github.com/spiresfrc9106/firstRoboPy
+3. https://www.118everybot.org/2023-resources
+4. https://gitlab.com/robonautseverybot/everybot-2023
+
+The first steps will be to remove the closed loop complexity of the swerve drive system and drive the
+4 tank drive brushed motors open loop from the joy sticks.
+
+On the autonomous side this everybot robot will have difficulties doing autonomous the firstRoboPy way
+because it:
+
+1. does not have brushed motors on the drive train to provide relative position/velocity
+2. does not have absolute encoders on the drive train to provide absolute position/velocity
+3. does not have a gyro to steer closed loop to heading
+
+Suggest that we don't have time to work on any autonomous for this robot.
+
+Looking at https://gitlab.com/robonautseverybot/everybot-2023 in Java, the best steps would be to delete
+lots of the firstRoboPy code and add in the simple everybot open loop control system.
 
 ## Installation
+
+Note that Spires are using:
+```cmd
+python --version
+Python 3.11.6
+```
 
 Before developing code on a new computer, perform the following:
 
