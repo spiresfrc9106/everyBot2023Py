@@ -10,6 +10,8 @@ from utils.units import deg2Rad
 from utils.units import in2m
 from wrappers.wrapperedSRXMagEncoder import WrapperedPulseWidthEncoder
 
+# pylint: disable=R0801
+
 """
 Defines the physical dimensions and characteristics of the drivetrain
 """

@@ -8,7 +8,9 @@ import navx
 from utils.units import lbsToKg
 from utils.units import deg2Rad
 from utils.units import in2m
-from wrappers.wrapperedSRXMagEncoder import WrapperedPulseWidthEncoder
+from wrappers.wrapperedRevThroughBoreEncoder import WrapperedRevThroughBoreEncoder
+
+# pylint: disable=R0801
 
 """
 Defines the physical dimensions and characteristics of the drivetrain
@@ -115,15 +117,12 @@ BR = 3
 
 # Function make a swerve module azimuth encoder reader object
 def wrapperedSwerveDriveAzmthEncoder(azmthEncoderPortIdx, moduleName, azmthOffsetRad):
-    return WrapperedPulseWidthEncoder(
+    return WrapperedRevThroughBoreEncoder(
         port=azmthEncoderPortIdx,
-        name=moduleName + "_azmthEnc",
+        name=moduleName,
         mountOffsetRad=azmthOffsetRad,
-        dirInverted=True,
-        minPulseSec=1e-6,
-        maxPulseSec=1025e-6,
-        minAcceptableFreqHz=0.9 / 1025e-6)
-
+        dirInverted=True
+    )
 # Function make gyro object
 def wrapperedGyro():
     """
@@ -135,7 +134,8 @@ def wrapperedGyro():
     :param spi_bitrate: SPI bitrate (Maximum:  2,000,000)
     :param update_rate_hz: Custom Update Rate (Hz)
     """
-    return navx.AHRS(spi_port_id=SPI.Port.kMXP, spi_bitrate=2000000, update_rate_hz=66)
+    return navx.AHRS(spi_port_id=SPI.Port.kMXP, spi_bitrate=1000000, update_rate_hz=50)
+
 
 # Array of translations from robot's origin (center bottom, on floor) to the module's contact patch with the ground
 robotToModuleTranslations = []

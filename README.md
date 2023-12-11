@@ -52,7 +52,7 @@ python -m robotpy_installer download-python
 python -m robotpy_installer download -r roborio_requirements.txt
 ```
 
-7. Power-up the robot
+4. Power-up the robot
 5. Make sure that you're on the same network as the robot
 5.1 One way is to leave your computer connected to WiFi internet and make a wired Ethernet connection to the robot
 5.2 Another way is to connect your computer to the robot over WiFi
@@ -81,6 +81,54 @@ On a RoboRIO:
 
 * RobotCasserole: http://10.17.36.2:5805/
 * Spires: http://10.91.6.2:5805/
+
+# Interesting commands
+
+## options for pytest
+
+
+Add a space '--' space and then pytest options: https://docs.pytest.org/en/6.2.x/usage.html
+
+```cmd
+python .\robot.py test -- -xvv
+python .\robot.py test -- -xvvvv
+python .\robot.py test -- -xlsvvvv
+```
+
+`-xvv` is the same as `-x -vv`
+
+`-xlsvvvv` is the same as `-x -l -s -vvvv`
+```
+
+Details
+
+```cmd
+python .\robot.py test -- --tb=auto    # (default) 'long' tracebacks for the first and last
+                                       # entry, but 'short' style for the other entries
+python .\robot.py test -- --tb=long    # exhaustive, informative traceback formatting
+python .\robot.py test -- --full-trace # long traces to be printed on error (longer than --tb=long). It also ensures 
+                                       # that a stack trace is printed on KeyboardInterrupt (Ctrl+C). This is very 
+                                       # useful if the tests are taking too long and you interrupt them with Ctrl+C to 
+                                       # find out where the tests are hanging. By default no output will be shown 
+                                       # (because KeyboardInterrupt is caught by pytest). By using this option you make
+                                       # sure a trace is shown.
+python .\robot.py test -- -l           # pytest lets the stderr/stdout flow through to the console
+python .\robot.py test -- -s           # pytest lets the stderr/stdout flow through to the console
+python .\robot.py test -- -v           # show each individual test step
+python .\robot.py test -- -vv          # pytest shows more details of what faild
+python .\robot.py test -- -vvv         # some plugins might make use of -vvv verbosity.
+python .\robot.py test -- -vvvv        # some plugins might make use of -vvvv verbosity.
+python .\robot.py test -- -x           # stop after first failure
+```
+
+# Interesting links
+
+https://github.com/robotpy/mostrobotpy
+
+https://docs.pytest.org/en/7.4.x/
+
+https://pytest.org/en/7.4.x/example/index.html
+
 
 # TODO Fix these up.
 

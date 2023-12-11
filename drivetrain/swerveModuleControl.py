@@ -33,7 +33,7 @@ class SwerveModuleControl():
         """
         self.wheelMotor = WrapperedSparkMax(wheelMotorCanID, moduleName+"_wheel", False)
         self.azmthMotor = WrapperedSparkMax(azmthMotorCanID, moduleName+"_azmth", True)
-        self.azmthEnc  = wrapperedSwerveDriveAzmthEncoder(azmthEncoderPortIdx, moduleName, azmthOffset)
+        self.azmthEnc = wrapperedSwerveDriveAzmthEncoder(azmthEncoderPortIdx, moduleName + "_azmthEnc", azmthOffset)
 
         self.wheelMotor.setInverted(invertWheel)
         self.azmthMotor.setInverted(INVERT_AZMTH_MOTOR)

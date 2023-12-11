@@ -1,21 +1,26 @@
 from wpimath.geometry import Pose2d
+from AutoSequencerV2.modeList import ModeList
+from AutoSequencerV2.builtInModes.doNothingMode import DoNothingMode
+from AutoSequencerV2.builtInModes.waitMode import WaitMode
 from AutoSequencerV2.sequentialCommandGroup import SequentialCommandGroup
 from utils.singleton import Singleton
-from autoModesConfig import makeDelayModeList
-from autoModesConfig import makeMainModeList
-
 
 class AutoSequencer(metaclass=Singleton):
     """Top-level implementation of the AutoSequencer 
     """
     def __init__(self):
-
+        
         # Have different delay modes for delaying the start of autonomous
-        self.delayModeList = makeDelayModeList()
-
+        self.delayModeList = ModeList("Delay")
+        self.delayModeList.addMode(WaitMode(0.0))
+        self.delayModeList.addMode(WaitMode(3.0))
+        self.delayModeList.addMode(WaitMode(6.0))
+        self.delayModeList.addMode(WaitMode(9.0))
+        
         # Create a list of every autonomous mode we want
-        self.mainModeList = makeMainModeList()
-
+        self.mainModeList = ModeList("Main")
+        self.mainModeList.addMode(DoNothingMode())
+        
         self.topLevelCmdGroup = SequentialCommandGroup()
         self.startPose = Pose2d()
         

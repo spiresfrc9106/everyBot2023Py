@@ -1,4 +1,7 @@
 from utils.singleton import Singleton
+
+# pylint: disable=R0801
+
 class DisabledWebserver(metaclass=Singleton):
 
     def __init__(self):

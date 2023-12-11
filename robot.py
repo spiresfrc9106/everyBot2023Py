@@ -1,5 +1,6 @@
 import os
 import wpilib
+from Autonomous.modes.drivePathTest1 import DrivePathTest1
 from robotConfig import webserverConstructorOrNone
 from robotConfig import dashboardOrNone
 from humanInterface.driverInterface import DriverInterface
@@ -34,6 +35,7 @@ class MyRobot(wpilib.TimedRobot):
         self.dInt = DriverInterface()
 
         self.autoSequencer = AutoSequencer()
+        self.autoSequencer.addMode(DrivePathTest1())
 
         self.dashboard = dashboardOrNone()
 
