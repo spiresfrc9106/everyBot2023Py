@@ -63,7 +63,7 @@ class DriverInterface():
             #
             #       |          -
             #
-            #           l/r
+            #         rot l/r
             #
 
             #
@@ -77,12 +77,13 @@ class DriverInterface():
 
             # Convert joystick fractions into physical units of velocity
 
-            calcYCmd = (vRJoy + vLJoy) / 2
+            calcXCmd = (vRJoy + vLJoy) / 2
             calcTCmd = (vRJoy - vLJoy) / 2
 
-            # not real: velXCmdRaw = vXJoy * MAX_FWD_REV_SPEED_MPS * sprintMult
-            velYCmdRaw = calcYCmd * MAX_STRAFE_SPEED_MPS * sprintMult
+            velXCmdRaw = calcXCmd * MAX_FWD_REV_SPEED_MPS * sprintMult
             velTCmdRaw = calcTCmd * MAX_ROTATE_SPEED_RAD_PER_SEC * sprintMult
+            #fake:
+            velYCmdRaw = 0
             
             # Slew-rate limit the velocity units to not change faster than
             # the robot can physically accomplish
