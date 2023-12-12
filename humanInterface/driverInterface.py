@@ -36,23 +36,53 @@ class DriverInterface():
             # Only attempt to read from the joystick if it's plugged in
             
             # Convert from joystic sign/axis conventions to robot velocity conventions
-            vXJoyRaw = -1.0*self.ctrl.getLeftY()
-            vYJoyRaw = -1.0*self.ctrl.getLeftX()
-            vTJoyRaw = -1.0*self.ctrl.getRightX()
+            vLJoyRaw = -1.0*self.ctrl.getLeftY()
+            vRJoyRaw = -1.0*self.ctrl.getRightY()
             
             # Apply deadband to make sure letting go of the joystick actually stops the bot
-            vXJoy = applyDeadband(vXJoyRaw,0.1)
-            vYJoy = applyDeadband(vYJoyRaw,0.1)
-            vTJoy = applyDeadband(vTJoyRaw,0.1)
-            
+            vLJoy = applyDeadband(vLJoyRaw,0.1)
+            vRJoy = applyDeadband(vRJoyRaw,0.1)
+
+            # okay so here's how this works
+            #
+            #          currently, we have:
+            #
+            #       +           -
+            #
+            # strafe u/d/l/r  rot l/r
+            #
+
+            #
+            #   in reality, we need:
+            #
+            #    fwd/back  rot lr
+            #
+            #       |          |
+            #
+            #          fwd/b
+            #
+            #       |          -
+            #
+            #           l/r
+            #
+
+            #
+            #     we find that the movement forward should be the average, 
+            #     while the rotational should be the different between them
+            #
+
             # Normally robot goes half speed - unlock full speed on 
             # sprint command being active
             sprintMult = 1.0 if(self.ctrl.getRightBumper()) else 0.5
 
             # Convert joystick fractions into physical units of velocity
-            velXCmdRaw = vXJoy * MAX_FWD_REV_SPEED_MPS * sprintMult
-            velYCmdRaw = vYJoy * MAX_STRAFE_SPEED_MPS * sprintMult
-            velTCmdRaw = vTJoy * MAX_ROTATE_SPEED_RAD_PER_SEC
+
+            calcYCmd = (vRJoy + vLJoy) / 2
+            calcTCmd = (vRJoy - vLJoy) / 2
+
+            # not real: velXCmdRaw = vXJoy * MAX_FWD_REV_SPEED_MPS * sprintMult
+            velYCmdRaw = calcYCmd * MAX_STRAFE_SPEED_MPS * sprintMult
+            velTCmdRaw = calcTCmd * MAX_ROTATE_SPEED_RAD_PER_SEC * sprintMult
             
             # Slew-rate limit the velocity units to not change faster than
             # the robot can physically accomplish
